@@ -14,8 +14,9 @@ export const GithubProvider = ({ children }) => {
   }
 
   const [state, dispatch] = useReducer(githubReducer, initialState);
-
+  
   const fetchUsers = async () => {
+    setLoading();
     const response = await fetch('https://api.github.com/users', {
       headers: {
         Authorization: `${GITHUB_TOKEN}`,
@@ -31,6 +32,8 @@ export const GithubProvider = ({ children }) => {
       payload: data,
     })
   }
+
+  const setLoading = () => dispatch({type: 'SET_LOADING'});
 
   return (
     <GithubContext.Provider
